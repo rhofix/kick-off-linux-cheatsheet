@@ -1,0 +1,896 @@
+#####################################################################################################                                                                                                        #
+# Hi Buddy! If you are new to UNIX/Linux then you should have this handy!
+# As a developer you are expected to play well in Unix/Linux environment as most of the production servers are Linux VMs. 
+#
+# To know more visit: https://ss64.com/bash/
+# 
+# System: Ubuntu LTS 16.04	       
+#    
+#	Fun Facts:
+#	
+#	 -> " . " in linux . represents current directory.
+#	 -> Most of the time you have seen something like:
+#	 -> Loopback access (access from 127.0.0.1) when you ping to localhost
+#           !/bin/bash. At the top of any shell script. This is known as a Shebang line.
+#	 -> Linux Commands are case sensitive.  ll is not same as LL!
+#
+#	This is a warm up file that helps you get warmed up before dealing with prod servers. Surely, It does not contain all 
+#	Unix/linux commands for example curl, nohup, awk, patch, comm, sed and many others, which are equally important. 
+#	
+####################################################################################################
+
+
+		      
+##### System Information #####
+
+# Display Linux system information
+ 
+ uname -a	#Linux mum00bgj.in.XXX.com 4.1.12-112.14.15.el7uek.x86_64 #2 SMP Thu Feb 8 09:58:19 PST 2018 x86_64 x86_64 x86_64 			GNU/Linux
+
+# Display kernel release information
+
+ uname -r    #4.1.12-112.14.15.el7uek.x86_64
+ 
+# Show which version of redhat installed
+
+ cat /etc/redhat-release	#Red Hat Enterprise Linux Server release 7.2 (Maipo)
+
+# Show how long the system has been running + load
+ 
+ uptime		#02:09:01 up 67 days, 10 min,  1 user,  load average: 0.00, 0.01, 0.05
+ 
+# Find hostname and IP address  (use ipconfig for IP address)
+ 
+ hostname		#******.XXXX.com
+ hostname -i    
+ 
+ cat /etc/hosts
+ 
+# Display all local ip addresses
+
+ hostname -I 	#10.180.34.124 172.17.0.1 2606:b400:c12:408b:221:f6ff:fe84:74e
+
+
+# Show system reboot history
+ 
+ last reboot
+
+reboot   system boot  4.1.12-112.14.15 Sun Apr 29 01:58 - 02:09 (67+00:11)
+reboot   system boot  4.1.12-112.14.15 Sat Feb 17 02:55 - 02:09 (137+22:14)
+reboot   system boot  4.1.12-61.1.16.e Tue Jan 30 00:49 - 02:54 (18+02:04)
+
+# Find Date
+
+ date	#Thu Jul  5 02:09:51 EDT 2018
+ 
+# Currrent Month Calender 
+ 
+ cal
+ 
+      
+      July 2015
+Su Mo Tu We Th Fr Sa
+ 1  2  3  4  5  6  7
+ 8  9 10 11 12 13 14
+15 16 17 18 19 20 21
+22 23 24 25 26 27 28
+29 30 31
+
+
+# Display who is online (Gives uptime+load+user)
+
+ w
+
+ 02:10:02 up 67 days, 11 min,  1 user,  load average: 0.00, 0.01, 0.05
+ USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+ rdbagwe  pts/0    dhcp-10-180-93-6 01:55    1.00s  0.08s  0.01s w
+ 
+# List of all users logged in  
+ 
+ users	#rdbagwe
+ 
+# Who you are logged in as
+ 
+ whoami		#rdbagwe
+
+# command of commands: to know more about a particular command, man stands for mannual
+
+ man COMMAND_NAME 
+
+ man man
+
+ man w
+
+
+# CPU information
+
+ cat /proc/cpuinfo
+ 
+ lscpu #better alternative with crisp info
+
+
+# Memory information
+
+ cat /proc/meminfo
+
+# Better Alternative for CPU info
+
+ lspci
+
+# Display RAM  
+
+ free -g
+
+ free -h # Prefered Human readable format
+ 
+# GPU related 
+
+ lspci    #only root can run this
+ 
+ 
+00:00.0 Host bridge: Intel Corporation 440FX - 82441FX PMC [Natoma] (rev 02)
+00:01.0 ISA bridge: Intel Corporation 82371SB PIIX3 ISA [Natoma/Triton II]
+00:01.1 IDE interface: Intel Corporation 82371SB PIIX3 IDE [Natoma/Triton II]
+00:01.3 Bridge: Intel Corporation 82371AB/EB/MB PIIX4 ACPI (rev 01)
+00:02.0 VGA compatible controller: Cirrus Logic GD 5446
+00:03.0 Unassigned class [ff80]: XenSource, Inc. Xen Platform Device (rev 01)
+
+# To get complete disk space information 
+
+ df -h
+ 
+ fdisk -l
+
+# Display total disk usage off the current directory. inside the directory you want to find the size of
+ 
+ du -sh
+
+# '|' at the end of a command to enter another one
+
+ du | sort -nr | less 
+
+ df -h | sort
+ 
+ du -h ostechnix/  # gives the size of the directory
+	
+# To find all possible locations of a application
+
+ whereis docker		#docker: /usr/bin/docker /etc/docker /usr/share/man/man1/docker.1.gz
+ 
+# and now which will be executed by default 
+
+ which docker 	#/usr/bin/docker
+
+# Display listening tcp and udp ports and corresponding programs
+
+ netstat -nutlp 
+ 
+# All  files  accessible  in a Unix system are arranged in one big tree, the file hierarchy, rooted at /.  These files can be spread out over several devices.  The mount command serves to attach the filesystem found on some device to the big file tree. Conversely,  the umount(8) command will detach it again.
+
+# The standard form of the mount command is:
+
+  mount -t type device dir
+
+# This  tells  the  kernel to attach the filesystem found on device (which is of type type) at the directory dir
+
+
+######  Performance Management #######
+
+
+
+# Display and manage the top processes
+ 
+ top
+
+# vmstat 1 and mpstat 1 (not so better commands)
+
+
+# Monitor all traffic on port 80 ( HTTP ) BEST COMMAND
+
+ tcpdump -i eth0 'port 80'
+
+# To find a particular process
+
+ ps -ef | grep weblogic
+ 
+ ps -ef | grep celery
+ 
+ ps aux | grep chrome
+ 
+ ps -ef | grep --color=always weblogic
+ 
+ 
+ The aux options are as follows:
+ 
+ a = show processes for all users
+ u = display the process's user/owner
+ x = also show processes not attached to a terminal
+ 
+# To Kill a process
+
+ kill -9 PID1 PID2 PID3
+ 
+ killall -9 processname
+ 
+ Killall -9 celery
+ 
+# to free us cache
+
+ sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"
+ 
+##### User Management #####
+
+# Create a group named "test" (use sudo): useradd or adduser  addgroup or groupadd
+ 
+ groupadd test
+
+ groupdel test
+ 
+ groups 		# To list all groups as root
+ 
+ #To get a list of the groups that a specific user is in, you can run
+
+ groups rdbagwe
+ 
+ cat /etc/group 	# To list all groups more reliable
+
+ cat /etc/passwd 	# To list all users more reliable
+ 
+ lid -g groupname 	# To list all usres in the group groupname run as sudo
+ 
+ lid username 		# To list all groups in which the user is tagged to
+ 
+ cat /etc/default/useradd   #this file contains the configuration
+ 
+ root(uid=0)
+ sync(uid=5)
+ shutdown(uid=6)
+ halt(uid=7)
+ operator(uid=11)
+ 
+ lid halt
+ root(gid=0) 
+ 
+# or use members [use yum to install or sudo apt-get install members]
+ 
+ members root
+ 
+# Create an account named rdbagwe, with a comment of "Rogan bagwe" and create the user's home directory
+
+ useradd -c "Rogan bagwe" -m rdbagwe
+
+# Delete the rdbagwe account
+
+ userdel rdbagwe
+
+# Add the rdbagwe account to the test group
+
+ usermod -aG test rdbagwe
+
+# To change the password of the user 
+
+ passwd rdbagwe
+ 
+# Use the usermod command to add the user to the sudo group.
+
+ usermod -aG sudo username
+ 
+# Ownership
+
+# You should use chown when you want a file's user or group permissions to apply to a different user or group.
+
+# You create a file, myfile.txt, using sudo or while logged in as root, so the file is owned by root. However, you intend the file to be used by your regular user account, myuser.
+
+ sudo chown myuser myfile.txt 
+ 
+# You also want to change the owning group of that file to that user's group, notmygroup.
+
+ sudo chown myuser:notmygroup myfile.txt
+
+To do it recursively for all files inside a directory
+
+sudo chown -R myuser:mygroup otherfiles
+
+
+*****************************************
+In Linux, a user can be a member of multiple groups, but it has only one "current group". The user's current group is the user's group identity, or GID.
+
+When the user creates a new file, the file's ownership is set to the user's UID (user identity) and GID (group identity). So when user rdbagwe starts writing a new document, the file is owned by rdbagwe, and also by her current group. She can change the file's group ownership with chown, but only root can use chown to change the owner to someone else.
+
+*****************************************
+
+
+# Below command is used to see the information about the current user
+
+id
+
+id -ng 		# specifies your current group
+
+###### Extra-Curricular ######
+
+# To open an ssh connection [ssh user@IP]
+
+ ssh rdbagwe@10.180.26.108
+
+ ssh -p port user@host #connect to host on port port as user
+ 
+# If you want to create a new file and open it using nano, then you can do this by running the following command:
+ 
+ nano
+ 
+# To open and existing file 
+
+ nano filename
+ 
+(Ctrl+o to save | Ctlr+x to exit | Ctrl+k to cut | Ctrl+u to paste | Ctrl+w to search ! Ctrl+/ to repalce)
+
+# VVVVIMP
+
+# to paste content from clipboard to nano editor
+
+ctrl+shift+insert
+
+
+# But the most important is Ctrl+6 this is to start selecting a word out of a string and the cut and paste
+
+# To copy 
+
+ Alt + Shift + 6
+
+or 
+
+# you simply Ctrl+6 then past it again since you dont want to cut it
+
+
+# A better alternative to nano is vi
+
+vi filename  
+
+to insert: i
+to save and exit: Esc + :wq!
+to exit without save: Esc + :q!
+
+
+# print current directory 
+
+ pwd
+ 
+# to see all files including hidden 
+
+ls -al
+
+# or use
+
+ll or ls
+
+
+###### Permissions ######
+
+Defualt Permissions
+
+# touch test.txt
+# ll
+total 4
+drwxr-xr-x 3 abdeshpa dba  4096 Feb  9 06:20 app
+-rw-r--r-- 1 root     root    0 Jul  5 05:45 test.txt
+
+
+
+# chmod -R 775 test.txt
+# ll
+total 4
+drwxr-xr-x 3 abdeshpa dba  4096 Feb  9 06:20 app
+-rwxrwxr-x 1 root     root    0 Jul  5 05:45 test.txt
+
+
+***************************************************
+ PERMISSION      EXAMPLE
+
+         U   G   W
+        rwx rwx rwx     chmod 777 filename
+        rwx rwx r-x     chmod 775 filename
+        rwx r-x r-x     chmod 755 filename
+        rw- rw- r--     chmod 664 filename
+        rw- r-- r--     chmod 644 filename
+
+		U = User
+		G = Group
+		W = World/Other
+		
+		a = All
+		r = read
+		w = write
+		x = execute
+		u = user
+		o = other
+		g = group
+		
+		+ = add
+		- = remove
+		
+******************************************************	
+
+chmod go+rw sample.txt # read write permissions to group and other
+		
+# NOTE: Use 777 cautiously!
+
+# To see all commands that has been executed by user
+
+history
+
+###### File system ######
+
+
+# Find files and directories by name
+ 
+ locate foldername
+ 
+# Find files larger than 100MB in /home
+
+ find /home -size +100M
+
+
+# Search recursively for pattern in directory
+
+ grep -r pattern directory
+ 
+ grep -r --color=always rohan /home/rdabgwe
+ 
+# make a directory
+
+ mkdir rohba
+ 
+# remove a directory
+
+ rmdir rohba
+
+# Remove (delete) file
+ 
+ rm file
+
+# Remove the directory and its contents recursively
+
+ rm -r directory
+
+# Force removal of file without prompting for confirmation
+
+ rm -f file
+
+# Forcefully remove directory recursively
+
+ rm -rf directory
+
+ rm -rf temp/ cache/ stage/
+
+# rename a file
+
+ mv file1 file2_BKP
+
+# To move all txt files from current directory to destination dir:
+
+ mv *.txt /home/rdbagwe/temp
+
+# Zip files/directories
+
+ zip -r zipfilename.zip file/folder1 file/folder2
+
+ unzip zipfilename.zip
+
+
+****************************************************************
+Compress an Entire Directory or a Single File
+
+Use the following command to compress an entire directory or a single file on Linux. It will also compress every other directory inside a directory you specify  in other words, it works recursively.
+
+tar -czvf nameofarchive.tar.gz /path/to/directory-or-file to be archived 
+
+Heres what those switches actually mean:
+
+-c: Create an archive.
+-z: Compress the archive with gzip.
+-v: Display progress in the terminal while creating the archive, also known as verbose mode. The v is always optional in these commands, but its helpful.
+-f: Allows you to specify the filename of the archive.
+
+If you have a directory named data in the current directory and you want to save it to a file named archive.tar.gz , you would run the following command:
+tar -czvf archive.tar.gz data
+
+If you have a directory at /usr/local/something on the current system and you want to compress it to a file named archive.tar.gz , you would run the following command:
+
+ 
+ tar -czvf archive.tar.gz /usr/local/something
+
+ 
+****************************************************************
+Extract an Archive
+
+Once you have an archive, you can extract it with the tar command. The following command will extract the contents of archive.tar.gz to the current directory.
+
+tar -xzvf archive.tar.gz
+
+Its the same as the archive creation command we used above, except the -x switch replaces the -c switch. This specifies you want to extract an archive instead of create one.
+
+****************************************************************
+
+# replace words from files
+
+ sed -i 's|NOTIFICATION|ERROR|g' logging.xml   # replace NOTIFICATION with ERROR
+
+# removing windows characters from a file. In DOS/Windows text files, a line break, also known as newline, is a combination of two characters: a Carriage Return (CR) followed by a Line Feed (LF). In Unix text files a line break is a single character: the Line Feed (LF). In Mac text files, prior to macOS X, a line break was single Carriage Return (CR) character.
+ 
+ dos2unix logging.xml
+
+
+# Create an empty file or update the access and modification times of file.
+
+ touch __init__.py
+
+# View the contents of file
+
+ cat file
+
+# To view file data dynamically
+ 
+ tail -f filename
+
+# Copy file1 to file2
+
+ cp file1 file2
+
+# grokking
+
+#search for pattern in files
+
+ grep pattern file1 file 2
+ 
+#search recursively for pattern in dir 
+
+ grep -r pattern dir
+
+# Securely Copy all files and directories recursively from server to the current system's directory
+ 
+ scp -r user@serverIP:/scratch/app/product/fmw/ .   #"." respresnt current directory as destination 
+
+# Copy source_directory recursively to destination. If destination exists, copy source_directory into destination, otherwise create destination with the contents of source_directory.
+
+ cp -r source_directory destination_directory
+
+
+##### Installing software: yum, apt, apt-get #####
+
+
+# Search for a package by keyword.
+ 
+ yum search keyword
+
+# Install package.
+ 
+ yum install package
+
+# Display description and summary information about package.
+ 
+ yum info package
+
+# Install package from local file named package.rpm
+ 
+ rpm -i package.rpm
+
+# Remove/uninstall package.
+ 
+ yum remove package
+
+
+##### VM Maintainance #####
+
+# The h option is for halt which means to stop. The second parameter is the time parameter. "now" means that shutdown the system right away.
+
+ shutdown -h now
+
+# Shutdown after 5 min
+
+ shutdown -h +5 "Server is going down for upgrade. Please save your work."
+
+# Restart after 5 min
+
+ shutdown -r +5 "Server will restart in 5 minutes. Please save your work."
+
+# To cancel the shutdown
+ 
+ shutdown -c
+
+# This will perform a graceful shutdown and restart of the machine.
+
+ reboot
+
+ halt
+
+ poweroff
+
+******************************
+reboot and shutdown and init 6
+******************************
+
+reboot uses the shutdown -r now.
+
+init 6 tells the init process to shutdown all of the spawned processes/daemons as written in the init files (in the inverse order they started) and lastly invoke the shutdown -r now command to reboot the machine
+
+
+###########################################################
+
+# If you do not want to use yum we can use apt, apt-get
+
+ sudo apt install glances
+
+ sudo apt content glances
+
+# we can also use locate, whereis, find command
+
+
+View Information About Package
+
+ sudo apt show firefox
+
+
+The apt-get utility is a powerful and free package management command line program, that is used to work with Ubuntus APT (Advanced Packaging Tool) library to perform installation of new software packages, removing existing software packages, upgrading of existing software packages and even used to upgrading the entire operating system.
+
+
+# To list all the available packages, type the following command.
+
+ apt-cache pkgnames
+
+#How Do I Install or Upgrade Specific Packages?
+#The install sub command is tracked by one or more packages wish for installation or upgrading.
+
+ sudo apt-get install netcat
+
+
+#How Do I Completely Remove Packages
+#To remove software packages including their configuration files, use the purge sub command as shown below.
+
+ sudo apt-get purge vsftpd
+
+# To un-install software packages without removing their configuration files (for later re-use the same configuration). Use the remove command as shown.
+
+ sudo apt-get remove vsftpd
+
+
+# How Do I Install Specific Package Version?
+# Let's say you wish to install only specific version of packages, simply use the = with the package-name and append desired version.
+
+ sudo apt-get install vsftpd=2.3.5-3ubuntu1
+
+
+# How I Can Clean Up Disk Space
+# The clean command is used to free up the disk space by cleaning retrieved (downloaded) .deb files (packages) from the local repository.
+
+ sudo apt-get clean
+
+
+# How I Can Auto clean Apt-Get Cache?
+# The autoclean command deletes all .deb files from /var/cache/apt/archives to free-up significant volume of disk space.
+	
+ sudo apt-get autoclean
+
+Packages are manually installed via the dpkg command (Debian Package Management System). dpkg is the backend to commands like apt-get and aptitude
+
+But of course the easiest ways to install a package would be, first, the GUI apps (Synaptic, Software Center, etc..), followed by the terminal commands apt-get and aptitude that add a very nice user friendly approach to the backend dpkg
+
+ sudo dpkg -i DEB_PACKAGE
+ sudo dpkg -i askubuntu_2.0.deb
+
+# Remove a package
+ 
+ sudo dpkg -r askubuntu
+
+# List all installed packages.
+# You can pipe the command to less (a pager) so you can more easily scroll the content:
+
+ dpkg -l | less
+
+# Check if the package is installed or not, and if it is, launch it:
+ 
+ dpkg -l | vlc
+
+
+# If dpkg reports an error due to dependency problems, you can run sudo apt-get install -f to download the missing dependencies and configure everything.
+
+# Command line calculator utility that is used for regular as well as scientific calculations in the command line.
+  
+  bc
+
+#########################################################################
+
+To execute commands from python shell
+
+>>> import os
+>>>
+>>> os.system('w')
+
+07:14:02 up 37 days, 23:50,  1 user,  load average: 0.12, 0.04, 0.05
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+rdbagwe  pts/0    dhcp-10-180-94-2 07:13    2.00s  0.06s  0.01s w
+
+
+#########################################################################
+
+crontab
+
+Crontab Fields and Allowed Ranges (Linux Crontab Syntax)
+
+Field    Description    Allowed Value
+MIN      Minute field    0 to 59
+HOUR     Hour field      0 to 23
+DOM      Day of Month    1-31
+MON      Month field     1-12
+DOW      Day Of Week     0-6
+CMD      Command         Any command to be executed.
+
+The time field uses 24 hours format. So, for 8 AM use 8, and for 8 PM use 20.
+
+30 08 10 06 * /home/maverick/full-backup
+
+30  30th Minute
+08  08 AM
+10  10th Day
+06  6th Month (June)
+*  Every day of the week
+
+
+ 00 11, 16 * * * /home/maverick/bin/incremental-backup
+
+
+00  0th Minute (Top of the hour)
+11, 16  11 AM and 4 PM Twicw a day
+*  Every day
+*  Every month
+*  Every day of the week
+
+# variations that suite your activity modify the values 
+
+# View Current Logged-In Users Crontab entries
+
+ crontab -l
+
+# Remove everything from crontab:
+
+ crontab -r
+
+# Cron jobs are present in
+
+ cat /etc/crontab
+
+# to add a cron job 
+
+ 1. give your job file correct permission: mostly 775 or 755
+ 2. contab -e
+ 3. enter the cron entry and just save 
+
+# then to remove specific cron
+
+ crontab -e  # then editor will be opened then just ctrl+k to the cron you intend to remove.
+
+################
+
+Linux administration: iptables
+		     
+################
+
+- Setting up a good firewall is an essential step to take in securing any modern operating system. 
+
+- Iptables is the software firewall that is included with most Linux distributions by default (a modern variant called nftables will begin to replace it).
+
+- can manipulate the Linux network stack, to block unwanted traffic
+
+-  The netfilter firewall that is included in the Linux kernel keeps IPv4 and IPv6 traffic completely separate. In Linux, IPv6 security 	is maintained separately from IPv4.
+	"iptables" only maintains firewall rules for IPv4 addresses but it has an IPv6 counterpart called "ip6tables", which 			can be used to maintain firewall rules for IPv6 network addresses. 
+
+
+- A chain is a set of rules that a packet is checked against sequentially.
+
+- There are three chains defined by default. They are:
+
+INPUT: This chain handles all packets that are addressed to your server.
+
+OUTPUT: This chain contains rules for traffic created by your server.
+
+FORWARD: This chain is used to deal with traffic destined for other servers that are not created on your server.
+This chain is basically a way to configure your server to route requests to other machines.
+
+
+-  Keep in mind that the order of your rules matter. All of these iptables commands use the -A option to append the new rule to the end of a chain. 
+If you want to put it somewhere else in the chain, you can use the -I option which allows you to specify the position of the new rule (or simply place it at the beginning of the chain by not specifying a rule number)
+	
+	-A # to append rules
+	-s # source
+	-p #specifies the protocol
+	-P #chain name OUTPUT, INPUT, FORWARD
+	-j # defines the target action 
+
+Basic iptables Commands:
+ 
+  sudo iptables -L  # to list the current rules that are configured for iptables
+  
+  sudo ip6tables -L
+ 
+  sudo iptables -F	# to flush the current rules that are configured for iptables 
+
+Block an IP Address:
+
+  sudo iptables -A INPUT -s IP_ADDRRSS -j DROP
+  
+  sudo iptables -A INPUT -s IP_ADDRRSS -j REJECT  #which will respond to the connection request with a "connection refused" error
+  
+  iptables -A INPUT -p tcp -s xxx.xxx.xxx.xxx -j DROP #block TCP traffic
+  
+  sudo iptables-save > $HOME/firewall.txt #to save firewall rules for ipv4
+  
+  sudo iptables-restore < $HOME/firewall.txt #restore the rules
+  
+  sudo iptables -A OUTPUT -p tcp --dport xxx -j DROP # block outgoing connections on a specific port
+  
+  sudo iptables -A OUTPUT -p tcp --dport xxx -j ACCEPT # Allow outgoing connections on a specific port
+  
+  # multiport can also be used
+  
+
+Block Facebook
+
+ host facebook.com 
+
+# facebook.com has address 66.220.156.68
+
+ whois 66.220.156.68 | grep CIDR
+
+# CIDR: 66.220.144.0/20
+
+(Classless Inter-Domain Routing)
+
+  sudo iptables -A OUTPUT -p tcp -d 66.220.144.0/20 -j DROP
+
+**********************************
+
+Ubuntu
+On Ubuntu, the easiest way to save iptables rules, so they will survive a reboot, is to use the iptables-persistent package. 
+
+ sudo apt-get install iptables-persistent
+ 
+# During the installation, you will asked if you want to save your current firewall rules.
+
+# If you update your firewall rules and want to save the changes, run this command:
+
+ sudo netfilter-persistent save #16.04
+
+ sudo invoke-rc.d iptables-persistent save #prior to 16.04
+
+
+
+
+# Managing Firewall on Ubuntu
+
+ ufw  # command is used for managing a Linux firewall
+ 
+ # enable/disable on boot
+ 
+ sudo ufw status
+ 
+ sudo ufw disable
+ 
+ sudo ufw enable
+ 
+ sudo ufw reload
+ 
+
+###########################################################################
+
+
+Ctrl+C  halts the current command
+Ctrl+Z  stops the current command, resume with
+fg in the foreground or bg in the background
+Ctrl+D  log out of current session, similar to exit
+Ctrl+W  erases one word in the current line
+Ctrl+U  erases the whole line
+Ctrl+R  type to bring up a recent command
+!! - repeats the last command
+exit  log out of current session
+
+
+##########################################################################
