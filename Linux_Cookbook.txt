@@ -878,6 +878,9 @@ On Ubuntu, the easiest way to save iptables rules, so they will survive a reboot
  
  sudo ufw reload
  
+ #find process on port
+ 
+ fuser -k 8000/tcp
 
 ###########################################################################
 
