@@ -882,6 +882,106 @@ On Ubuntu, the easiest way to save iptables rules, so they will survive a reboot
  
  fuser -k 8000/tcp
 
+#########################################################################
+
+for quick ssh: add entries in config present at path /home/rhofix/.ssh
+
+Host xmargin-dev-accx
+    HostName ec2-XXXX.eu-west-1.compute.amazonaws.com
+    User ec2-user
+    IdentityFile /home/rhofix/.ssh/keys/my_aws_keys.pem
+    
+    
+    
+######################################################################
+    
+
+> To stop the service running service
+
+systemctl stop apache2
+
+> To confirm that the service is not running, run
+
+systemctl status apache2
+
+> Reload the daemon
+
+sudo systemctl daemon-reload
+
+
+> To enable apache2 service on boot up run
+
+systemctl enable apache2
+
+> To disable apache2 service on boot up run
+
+systemctl disable apache2
+
+> To restart the service
+
+systemctl restart apache2
+
+> To check whether the service is currently configured to start on the next boot up
+
+systemctl is-enabled apache2
+
+> Removing the service in systemd
+
+rm /etc/systemd/system/service-name
+rm /etc/systemd/system/service-name/[related symlinks]
+
+> Services are here
+
+cd /etc/systemd/system/
+
+> Serice Example
+
+[Unit]
+Description=Xmargin Backend
+
+[Service]
+WorkingDirectory=/var/www/services/xmargin-b/
+ExecStart=/usr/bin/mvn spring-boot:run -Dspring-boot.run.profiles=dev
+
+[Install]
+WantedBy=multi-user.target
+
+> Service Example 2
+
+[Unit]
+Description=Jenkins Daemon
+
+[Service]
+WorkingDirectory=/home/ubuntu/jenkins_war/
+ExecStart=/usr/bin/java -jar jenkins.war --httpPort=9090
+User=ubuntu
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+Note:
+
+> systemd gives us the systemctl commands suite which is mostly used to enable services to start at boot time.
+
+> systemd and service differnece?
+
+sudo service apache2 start VS. sudo systemctl start apache2
+
+> service operates on the files in /etc/init.d and was used in conjunction with the old init system. systemctl operates on the files in /lib/systemd . If there is a file for your service in /lib/systemd it will use that first and if not it will fall back to the file in /etc/init.d. Also If you are using OS like ubuntu-14.04 only service command will be available.
+
+
+> To see service logs
+
+journalctl --unit=jenkins.service | tail -n 300
+
+
+
+
+
+
 ###########################################################################
 
 
@@ -897,3 +997,10 @@ exit  log out of current session
 
 
 ##########################################################################
+
+IMPS
+
+sudo cat /root/.jenkins/secrets/initialAdminPasswo
+
+the log files are at /var/log/mongodb/mongod.log
+
