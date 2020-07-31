@@ -978,6 +978,95 @@ sudo service apache2 start VS. sudo systemctl start apache2
 journalctl --unit=jenkins.service | tail -n 300
 
 
+-MOST FREQ USED--
+
+> Removing Application
+
+sudo apt remove --purge NAME
+
+sudo apt clean
+
+sudo apt autoremove
+
+df -hT /
+
+df -h
+
+> list services
+
+systemctl list-unit-files | grep enabled
+
+systemctl list-unit-files --state=running
+
+sudo netstat -tupln
+
+> get process on port
+
+fuser 8080/tcp
+
+> Droping Cache
+
+echo 1 > /proc/sys/vm/drop_caches
+
+> Dropping Thumbnail
+
+du -sh ~/.cache/thumbnails/
+
+sudo rm -rf ~/.cache/thumbnails/*
+
+> Add export variables in ~/.bashrc so that on every boot you get the env variables
+
+> cpu speed
+
+cat /proc/cpuinfo | grep "MHz"
+
+> use below
+
+watch -n1 "cat /proc/cpuinfo | grep \"^[c]pu MHz\""
+
+> Chamge user group
+
+sudo usermod -a -G docker $USER
+
+
+
+tar -xvf Apache_OpenOffice*.tar.gz
+
+sudo dpkg -i en-US/DEBS/*.deb
+
+sudo dpkg -i en-US/DEBS/desktop-integration/*.deb
+
+-- remove
+
+sudo apt-get -y purge openoffice*.* && sudo apt-get autoremove
+
+sudo apt clean
+
+> to move ecexutable
+
+sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
+
+
+4=Read
+2=Write
+1=Execute
+
+
+chmod 400 file_name > only read access to the user:group:world
+
+chown -R User:Group File/Dir_Name
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
