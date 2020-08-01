@@ -1058,10 +1058,42 @@ chown -R User:Group File/Dir_Name
 
 
 
+> To Create User with Specific User ID
+-- When we create a user using useradd function user ID will be assigned to the user reading /etc/login.defs files. You can also create a new user with specific user id by using -u option with useradd command:
+
+> To create a user with User ID 1401 you can run following command in the terminal:
+
+useradd -u 1401 demouser1
+ 
+
+> Confirm and verify User ID with id command:
+
+id -u demouser1
+
+> to create a user with home directory use -m option, or assign to group use -g option 
+
+> To see the user home directory and other user related information like user id, group id, shell and comments
+
+cat /etc/passwd | grep rhofix
+
+# rhofix:x:505:505::/data/projects:/bin/bash
+
+useradd -u 1000 -g 500 mario
 
 
+> Here in this example, we are adding a user ‘tecmint‘ into multiple groups like admins, webadmin and developers
 
+useradd -G admins,webadmin,developers tecmint
 
+> create a user with expiry date:  ‘useradd‘ command user account never get expires i.e their expiry date is set to 0 (means never expired).
+
+useradd -e 2014-03-27 temp_user
+
+> Next, verify the age of account and password with ‘chage‘ command for user 'temp_user' after setting account expiry d
+
+chage -l temp_user
+
+use man useradd for more details
 
 
 
