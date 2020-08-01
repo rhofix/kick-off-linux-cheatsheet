@@ -1131,7 +1131,12 @@ To disable your service on every reboot
 sudo systemctl disable example.service
 
 
+what is WantedBy=multi-user.target?
 
+
+1.) multi-user.target is basically the closest equivalent of classic SysVinit runlevel 3 that systemd has. When a systemd system boots up, systemd is trying to make the system state match the state specified by default.target - which is usually an alias for either graphical.target or multi-user.target.
+
+multi-user.target normally defines a system state where all network services are started up and the system will accept logins, but a local GUI is not started. This is the typical default system state for server systems
 
 
 
