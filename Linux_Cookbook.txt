@@ -1139,6 +1139,35 @@ what is WantedBy=multi-user.target?
 multi-user.target normally defines a system state where all network services are started up and the system will accept logins, but a local GUI is not started. This is the typical default system state for server systems
 
 
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/E-learning/elearning
+ExecStart=/home/ubuntu/E-learning/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/E-learning/elearning/elearning.sock elearning.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+In systemd, a unit refers to any resource that the system knows how to operate on and manage.
+
+[Unit] Section Directives
+The first section found in most unit files is the [Unit] section. This is generally used for defining metadata for the unit and configuring the relationship of the unit to other units.
+
+After=: The units listed in this directive will be started before starting the current unit. This does not imply a dependency relationship and one must be established through the above directives if this is required.
+
+A symlink (also called a symbolic link) is a type of file in Linux that points to another file or a folder on your computer. Symlinks are similar to shortcuts in Windows.
+
+Some people call symlinks "soft links" – a type of link in Linux/UNIX systems – as opposed to "hard links."
+
+Difference Between a Soft Link and a Hard Link
+Soft links are similar to shortcuts, and can point to another file or directory in any file system.
+
+Hard links are also shortcuts for files and folders, but a hard link cannot be created for a folder or file in a different file system.
 
 
 
